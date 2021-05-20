@@ -8,7 +8,7 @@ let userSchema = new Schema({
     type: Array
   },
 }, {
-  collection: 'users'
+  collection: 'photos'
 })
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('Photos', userSchema)

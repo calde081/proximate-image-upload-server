@@ -31,8 +31,7 @@ var upload = multer({
   }
 });
 
-// User model
-let User = require('../models/User');
+let Photo = require('../models/Photos');
 
 router.post('/create-user', upload.array('avatar', 6), (req, res, next) => {
   const reqFiles = []
@@ -41,15 +40,15 @@ router.post('/create-user', upload.array('avatar', 6), (req, res, next) => {
     reqFiles.push(url + '/public/' + req.files[i].filename)
   }
 
-  const user = new User({
+  const photo = new Photo({
     _id: new mongoose.Types.ObjectId(),
     avatar: reqFiles
   });
-  user.save().then(result => {
+  photo.save().then(result => {
     console.log(result);
     res.status(201).json({
       message: "Done upload!",
-      userCreated: {
+      photoCreated: {
         _id: result._id,
         avatar: result.avatar
       }
@@ -63,7 +62,7 @@ router.post('/create-user', upload.array('avatar', 6), (req, res, next) => {
 })
 
 router.get("/", (req, res, next) => {
-  User.find().then(data => {
+  Photo.find().then(data => {
     res.status(200).json({
       message: "User list retrieved successfully!",
       users: data
